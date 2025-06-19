@@ -30,7 +30,7 @@ def cropImage(outputFolder, page, nameList, name:int|str, cropArea, rounded:bool
 
     page = page.crop(cropArea).convert("RGBA")
     name = f"{nameList[name]}.png"if isinstance(name,int)else f"{name}.png"
-    if isWindow:
+    if isWindows:
         for symbol in poorSymbolsRejectedByWindows:
             name = name.replace(symbol, '_')
 
@@ -207,6 +207,29 @@ names = {
         "Love or Die (Extended Ver.)",
         "Misty Er'A ~One Day~ (Extended Ver.)",
         "TOXIC (Extended Ver.)"
+    ],
+
+    "LIBERTY III" : [
+        "Checkmate",
+        "DJ조선",
+        "I'm Dizzy",
+        "Fly with me",
+        "Love, Epilogue",
+        "Hero",
+        "Summper Fling",
+        "CHiNEM4TiC",
+        "thinking!",
+        "小緋縅 (kohiodoshi)",
+        "Violent",
+        "Shimmer",
+        "Rise Up",
+        "The Universe",
+        "Rusty Shell",
+        "Synchronized Resonance",
+        "Labyrinth of Tears",
+        "Phylma",
+        "I'm Dizzy(Extended Ver.)",
+        "CHiNEM4TiC(Extended Ver.)"
     ]
 }
 
@@ -235,7 +258,12 @@ cropArea = {
         "LIBERTY II" : {
             "name" : "LIBERTY \033[32mII\033[0m",
             "set"  : (-360, -138, -362, -140)
-        }
+        },
+
+        "LIBERTY III" : {
+            "name" : "LIBERTY \033[33mIII\033[0m",
+            "set"  : (-360, -138, -362, -140)
+        },
     }
 }
 # 2374x2374
@@ -247,7 +275,7 @@ dataPath = f"{os.getcwd()}/pdfData.json"
 
 hi = '\n    '
 
-isWindow = os.name == "nt"
+isWindows = os.name == "nt"
 
 
 # region system
@@ -291,7 +319,7 @@ while 1:
         pages = CFP(
             path, dpi=1000,
             poppler_path='poppler-24.08.0/Library/bin'\
-                    if isWindow
+                    if isWindows
                 else None
         )[2:]
         print("추출이 완료되었습니다.\n\n")
@@ -338,7 +366,7 @@ while True:
                                 outputFolder,
                                 pages[0], None, f"샘플_{typ}",
                                 applyGuideSet(cropArea['type'][typ], list(cropArea['guideSet'].values())[choice['num']-1]['set']),
-                                rounded=True if choice['name']in("LIBERTY","LIBERTY II")else False
+                                rounded=True if choice['name']in("LIBERTY","LIBERTY II","LIBERTY III")else False
                             )
 
                         input(f"\n\n샘플 커버 이미지 세 개가 크롭되었습니다. \033[33m'{outputFolder}'\033[0m 폴더에서 확인해주세요.\n\n확인__")
@@ -396,6 +424,8 @@ while 1:
                     continue
 
         case '2':
+            print("\033[0m잠시만 기다려주세요...")
+            
             titleList      = deepcopy(names[choice['name']])
             titleOrderList = [i for i in range(0, len(titleList))]
             titleData      = deepcopy(pages)
@@ -405,7 +435,6 @@ while 1:
 
     break
 
-print("\033[0m잠시만 기다려주세요...")
 input(f"\n\n다음으로 \033[35m크롭 위치\033[0m를 설정해야 합니다.\n\n확인__")
 
 while 1:
@@ -436,7 +465,7 @@ while 1:
         names[choice['name']],
         titleOrderList,
         [cropData, choice['num']-1],
-        rounded=True if choice['name']in("LIBERTY","LIBERTY II")else False
+        rounded=True if choice['name']in("LIBERTY","LIBERTY II","LIBERTY III")else False
     )
     print(f"\n\n이미지가 모두 생성되었습니다. \033[33m'{outputFolder}'\033[0m 폴더에서 확인해주세요.")
     if input(f"\n\n\033[35m크롭 위치 설정\033[0m으로 돌아가고 싶으신가요?(예 : y, 아니오 : Any\033[31m(not y||Y)\033[34m(기본값)\033[0m) : ").lower() == 'y':
