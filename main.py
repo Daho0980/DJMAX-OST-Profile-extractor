@@ -216,7 +216,7 @@ names = {
         "Fly with me",
         "Love, Epilogue",
         "Hero",
-        "Summper Fling",
+        "Summer Fling",
         "CHiNEM4TiC",
         "thinking!",
         "小緋縅 (kohiodoshi)",
