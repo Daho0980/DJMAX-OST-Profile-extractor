@@ -17,6 +17,13 @@ pdf2image
 ```
 3. 꼭 경로 입력은 상대경로로 입력해주세요.
 
+## 지원하는 확장
+- Extension IV
+- Extension V
+- Liberty
+- Liberty II
+- Liberty III
+
 ## 사용법
 ### Mac
 그냥 실행하세요! 이 이상 당신을 막을 수 있는 것은 없습니다!
