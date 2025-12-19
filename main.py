@@ -75,7 +75,7 @@ def PdftoImages(outputFolder, pages, nameList, specified, cropData:list, rounded
             applyGuideSet(*pos),
             rounded=rounded
         )
-        print(f"'{nameList[i]}'의 이미지가 크롭 후 저장되었습니다.")
+        print(f"\033[33m'{nameList[i]}'\033[0m의 이미지가 크롭 후 저장되었습니다.")
 
 def savePDFData(dataPath, pages, saveType:str="make", target:dict={}) -> None:
     """
@@ -153,7 +153,7 @@ names = {
         "Peace Comes At a Price (Extended Ver.)",
     ],
 
-    "LIBERTY" : [
+    "V LIBERTY" : [
         "Final Hour",
         "Song For You",
         "따라와",
@@ -183,7 +183,7 @@ names = {
         "평행고백",
     ],
 
-    "LIBERTY II" : [
+    "V LIBERTY II" : [
         "Kakera",
         "1 ! 2 ! 3 ! 4 ! ただいま配信CHU !",
         "MADNESS",
@@ -209,7 +209,7 @@ names = {
         "TOXIC (Extended Ver.)"
     ],
 
-    "LIBERTY III" : [
+    "V LIBERTY III" : [
         "Checkmate",
         "DJ조선",
         "I'm Dizzy",
@@ -230,6 +230,30 @@ names = {
         "Phylma",
         "I'm Dizzy(Extended Ver.)",
         "CHiNEM4TiC(Extended Ver.)"
+    ],
+
+    "V LIBERTY IV" : [
+        "The Castle of Báthory",
+        "No Mercy (Game Ver.)",
+        "AWAKE",
+        "Mirage Night",
+        "Crazy",
+        "New Fantasy",
+        "Octet rule",
+        "Hallasan",
+        "Never Forget You",
+        "Maboroshi",
+        "A Miracle For Me",
+        "Trembling Moods",
+        "Luv Master",
+        "Village Racing",
+        "RUN & RUN",
+        "Samsara Garden",
+        "Re-Rule",
+        "HEAVENLY STRIKE",
+        "ALTER-ƏgØ",
+        "Heliocentrism",
+        "No Mercy"
     ]
 }
 
@@ -241,34 +265,45 @@ cropArea = {
     },
     "guideSet" : {
         "EXT:IV" : {
-            "name" : "\033[31mEXT:IV\033[0m",
+            "name" : "\033[38;2;255;17;17mEXT:IV\033[0m",
             "set"  : (0, 0, 0, 0)
         },
 
         "EXT:V" : {
-            "name" : "\033[33mEXT\033[34m:V\033[0m",
+            "name" : "\033[38;2;245;219;144mEXT\033[38;2;252;240;205m:\033[38;2;242;205;99mV\033[0m",
             "set"  : (-353, -131, -369, -146)
         },
 
-        "LIBERTY" : {
-            "name" : "\033[35mLIBE\033[33mRT\033[36mY\033[0m",
+        "V LIBERTY" : {
+            "name" : "\033[38;2;245;111;179mV LI\033[38;2;255;243;109mBE\033[38;2;127;246;248mRTY\033[0m",
             "set"  : (-360, -138, -362, -140)
         },
 
-        "LIBERTY II" : {
-            "name" : "LIBERTY \033[32mII\033[0m",
+        "V LIBERTY II" : {
+            "name" : "\033[38;2;255;255;255mV \033[38;2;5;21;684mLIBERTY \033[38;2;184;255;94mII\033[0m",
             "set"  : (-360, -138, -362, -140)
         },
 
-        "LIBERTY III" : {
-            "name" : "LIBERTY \033[33mIII\033[0m",
+        "V LIBERTY III" : {
+            "name" : "\x1b[38;2;255;255;255mV LIBERTY \033[38;2;255;247;171mI\033[38;2;252;231;132mI\033[38;2;236;201;90mI\033[0m",
             "set"  : (-360, -138, -362, -140)
         },
+
+        "V LIBERTY IV" : {
+            "name" : "\033[38;2;246;143;191mV\033[38;2;247;140;188m \033[38;2;248;148;192mL\033[38;2;251;158;196mI\033[38;2;253;175;206mB\033[38;2;254;186;213mE\033[38;2;253;200;221mR\033[38;2;254;224;236mT\033[38;2;251;225;235mY\033[38;2;254;241;246m \033[38;2;246;143;191mI\033[38;2;247;140;188mV\033[0m",
+            "set"  : (-360, -138, -362, -140)
+        }
     }
 }
 # 2374x2374
 
 poorSymbolsRejectedByWindows = ('₩', '/', ':', '*', '?', '"', '<', '>', '|')
+roundedAngle = (
+    "V LIBERTY",
+    "V LIBERTY II",
+    "V LIBERTY III",
+    "V LIBERTY IV"
+)
 
 PDFDataPreset = None
 dataPath = f"{os.getcwd()}/pdfData.json"
@@ -366,7 +401,7 @@ while True:
                                 outputFolder,
                                 pages[0], None, f"샘플_{typ}",
                                 applyGuideSet(cropArea['type'][typ], list(cropArea['guideSet'].values())[choice['num']-1]['set']),
-                                rounded=True if choice['name']in("LIBERTY","LIBERTY II","LIBERTY III")else False
+                                rounded=True if choice['name']in roundedAngle else False
                             )
 
                         input(f"\n\n샘플 커버 이미지 세 개가 크롭되었습니다. \033[33m'{outputFolder}'\033[0m 폴더에서 확인해주세요.\n\n확인__")
@@ -465,7 +500,7 @@ while 1:
         names[choice['name']],
         titleOrderList,
         [cropData, choice['num']-1],
-        rounded=True if choice['name']in("LIBERTY","LIBERTY II","LIBERTY III")else False
+        rounded=True if choice['name']in roundedAngle else False
     )
     print(f"\n\n이미지가 모두 생성되었습니다. \033[33m'{outputFolder}'\033[0m 폴더에서 확인해주세요.")
     if input(f"\n\n\033[35m크롭 위치 설정\033[0m으로 돌아가고 싶으신가요?(예 : y, 아니오 : Any\033[31m(not y||Y)\033[34m(기본값)\033[0m) : ").lower() == 'y':
