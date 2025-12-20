@@ -251,7 +251,7 @@ names = {
         "Samsara Garden",
         "Re-Rule",
         "HEAVENLY STRIKE",
-        "ALTER-ƏgØ",
+        "ALTER_ƏgØ",
         "Heliocentrism",
         "No Mercy"
     ]
